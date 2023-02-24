@@ -1,11 +1,18 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { Button } from '@mui/material';
+import { Button, Container } from '@mui/material';
 
 import type { FC } from 'react';
 
 const App: FC = () => {
-  return <Button variant="contained">Hello World!</Button>;
+  const { t } = useTranslation();
+
+  return (
+    <Container>
+      <Button variant="contained">{t('hello')}</Button>
+    </Container>
+  );
 };
 
 export default App;

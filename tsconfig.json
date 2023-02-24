@@ -13,8 +13,13 @@
     "resolveJsonModule": true,
     "isolatedModules": false,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "baseUrl": "./",
+    "outDir": "./dist",
+    "paths": {
+      "@components/*": ["./source/components/*"],
+      "@state/*": ["source/state/*"]
+    }
   },
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": ["source/**/*", "./source/i18n/i18next.d.ts"]
 }

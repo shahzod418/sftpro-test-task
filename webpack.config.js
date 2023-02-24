@@ -1,4 +1,6 @@
+const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: ['./source/index.tsx'],
@@ -18,8 +20,13 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './template/index.html',
     }),
+    new MiniCssExtractPlugin(),
   ],
   resolve: {
+    alias: {
+      '@components': resolve(__dirname, 'source/components'),
+      '@state': resolve(__dirname, 'source/state'),
+    },
     extensions: ['.tsx', '.ts', '.js'],
   },
   module: {
@@ -30,6 +37,10 @@ module.exports = {
         use: {
           loader: 'swc-loader',
         },
+      },
+      {
+        test: /\.scss$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
       },
     ],
   },

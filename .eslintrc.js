@@ -35,8 +35,16 @@ module.exports = {
         pathGroups: [
           {
             pattern: '@mui/**',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: '@components/**',
             group: 'parent',
-            position: 'before',
+          },
+          {
+            pattern: '@state/**',
+            group: 'parent',
           },
         ],
         pathGroupsExcludedImportTypes: ['builtin', 'parent', 'type'],

@@ -1,0 +1,21 @@
+.loading {
+  width: 200px;
+  height: 200px;
+  margin: auto;
+  background-color: transparent;
+  border-radius: 50%;
+  border: 15px dashed whitesmoke;
+  border-color: whitesmoke rgba($color: whitesmoke, $alpha: 0.75)
+    rgba($color: whitesmoke, $alpha: 0.5) rgba($color: whitesmoke, $alpha: 0.25);
+  animation: loading-animation 1s ease-in-out infinite;
+}
+
+@keyframes loading-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
