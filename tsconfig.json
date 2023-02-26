@@ -17,9 +17,12 @@
     "baseUrl": "./",
     "outDir": "./dist",
     "paths": {
-      "@components/*": ["./source/components/*"],
-      "@state/*": ["source/state/*"]
+      "@components/*": ["./source/app/components/*"],
+      "@pages/*": ["./source/app/pages/*"],
+      "@state/*": ["./source/state/*"],
+      "@interfaces/*": ["./source/interfaces/*"],
+      "@hooks/*": ["./source/hooks/*"]
     }
   },
-  "include": ["source/**/*", "./source/i18n/i18next.d.ts"]
+  "include": ["source/**/*", "./source/i18n/i18next.d.ts", "./custom.d.ts"]
 }

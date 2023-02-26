@@ -1,5 +1,19 @@
-export default {
+import type { I18n } from '@interfaces/i18next';
+
+const en: I18n = {
   translation: {
-    hello: 'Hello World!',
+    posts: 'Posts',
+    albums: 'Albums',
+    toDo: 'To Do',
+    error: 'Unexpected error',
+    post: 'Post',
+    title: 'Title',
+    body: 'Body',
+    comments: 'Comments',
+    create: 'Create',
+    edit: 'Edit',
+    delete: 'Delete',
   },
 };
+
+export default en;

@@ -12,6 +12,7 @@ module.exports = {
   },
   devServer: {
     port: 8080,
+    historyApiFallback: true,
   },
   optimization: {
     minimize: true,
@@ -24,8 +25,11 @@ module.exports = {
   ],
   resolve: {
     alias: {
-      '@components': resolve(__dirname, 'source/components'),
+      '@components': resolve(__dirname, 'source/app/components'),
+      '@pages': resolve(__dirname, 'source/app/pages'),
       '@state': resolve(__dirname, 'source/state'),
+      '@interfaces': resolve(__dirname, 'source/interfaces'),
+      '@hooks': resolve(__dirname, 'source/hooks'),
     },
     extensions: ['.tsx', '.ts', '.js'],
   },
@@ -40,7 +44,30 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
+        oneOf: [
+          {
+            test: /\.m\.s?css$/,
+            use: [
+              {
+                loader: MiniCssExtractPlugin.loader,
+              },
+              {
+                loader: 'css-loader',
+                options: {
+                  modules: {
+                    localIdentName: '[name]__[local]--[hash:base64:5]',
+                  },
+                },
+              },
+              {
+                loader: 'postcss-loader',
+                options: { sourceMap: true },
+              },
+              { loader: 'sass-loader', options: { sourceMap: false } },
+            ],
+          },
+          { use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'] },
+        ],
       },
     ],
   },

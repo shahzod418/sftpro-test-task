@@ -39,11 +39,19 @@ module.exports = {
             position: 'after',
           },
           {
+            pattern: '@pages/**',
+            group: 'parent',
+          },
+          {
             pattern: '@components/**',
             group: 'parent',
           },
           {
             pattern: '@state/**',
+            group: 'parent',
+          },
+          {
+            pattern: '@hooks/**',
             group: 'parent',
           },
         ],

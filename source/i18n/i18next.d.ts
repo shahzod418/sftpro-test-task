@@ -1,7 +1,7 @@
-import type en from './en';
+import type { I18n } from '@interfaces/i18next';
 
 declare module 'i18next' {
   interface CustomTypeOptions {
-    resources: typeof en;
+    resources: I18n;
   }
 }
