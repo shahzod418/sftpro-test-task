@@ -1,18 +1,10 @@
-import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+
+import { fetchPostById, fetchPosts } from '@state/thunks/posts';
 
 import type { InitialState } from '@interfaces/state/initialState';
 import type { Post } from '@interfaces/state/post';
-
-export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
-  const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-  return response.data;
-});
-
-export const fetchPostById = createAsyncThunk('posts/fetchPostById', async (postId: number) => {
-  const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${postId}`);
-  return response.data;
-});
+import type { PayloadAction } from '@reduxjs/toolkit';
 
 const postsAdapter = createEntityAdapter<Post>();
 
@@ -25,7 +17,7 @@ const postsSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(fetchPosts.fulfilled, (state, action) => {
+      .addCase(fetchPosts.fulfilled, (state, action: PayloadAction<Post[]>) => {
         postsAdapter.addMany(state, action);
         state.loadingStatus = 'idle';
         state.error = null;
@@ -34,7 +26,7 @@ const postsSlice = createSlice({
         state.loadingStatus = 'failed';
         state.error = action.error;
       })
-      .addCase(fetchPostById.fulfilled, (state, action) => {
+      .addCase(fetchPostById.fulfilled, (state, action: PayloadAction<Post>) => {
         postsAdapter.addOne(state, action);
         state.loadingStatus = 'idle';
         state.error = null;

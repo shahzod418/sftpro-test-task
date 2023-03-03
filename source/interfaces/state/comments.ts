@@ -5,3 +5,10 @@ export type Comment = {
   email: string;
   body: string;
 };
+
+export type CommentCreatePayload = Omit<Comment, 'id'>;
+
+export type CommentUpdatePayload = {
+  commentId: number;
+  data: Partial<CommentCreatePayload>;
+};

@@ -1,25 +1,24 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { Fade, Grid, Slide, Typography } from '@mui/material';
 
 import Navigation from '@components/Navigation';
 import PostCard from '@components/PostCard';
+import { useAppDispatch, useAppSelector } from '@hooks/redux';
 import { useMount } from '@hooks/useMount';
-import { fetchPosts } from '@state/slices/posts';
+import { fetchPosts } from '@state/thunks/posts';
 
 import styles from './style.m.scss';
 
-import type { AppDispatch, RootState } from '@state/store';
 import type { FC } from 'react';
 
 const Posts: FC = () => {
   const { t } = useTranslation();
 
-  const posts = useSelector<RootState, RootState['posts']>(state => state.posts);
+  const posts = useAppSelector(state => state.posts);
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   const { mount, handleNavigate } = useMount();
 

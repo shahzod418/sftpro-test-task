@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import EditIcon from '@mui/icons-material/Edit';
@@ -8,15 +7,13 @@ import { Fab, Fade, Grid, Slide, Typography } from '@mui/material';
 
 import Comment from '@components/Comment';
 import Navigation from '@components/Navigation';
+import { useAppDispatch, useAppSelector } from '@hooks/redux';
 import { useMount } from '@hooks/useMount';
-import { fetchCommentsByPostId } from '@state/slices/comments';
-import { fetchPostById } from '@state/slices/posts';
+import { fetchCommentsByPostId } from '@state/thunks/comments';
+import { fetchPostById } from '@state/thunks/posts';
 
 import styles from './style.m.scss';
 
-import type { Comment as IComment } from '@interfaces/state/comments';
-import type { Post as IPost } from '@interfaces/state/post';
-import type { AppDispatch, RootState } from '@state/store';
 import type { FC } from 'react';
 
 const Post: FC = () => {
@@ -28,21 +25,21 @@ const Post: FC = () => {
     return null;
   }
 
-  const post = useSelector<RootState, IPost | null>(state => state.posts.entities[postId] || null);
-  const comments = useSelector<RootState, IComment[] | null>(
-    state => state.comments.entities[postId] || null,
+  const comments = useAppSelector(state => state.comments);
+  const post = useAppSelector(state => state.posts.entities[postId] || null);
+  const commentsByPostIds = useAppSelector(
+    state => state.commentsByPostIds.entities[postId] || null,
   );
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   const { mount, handleNavigate } = useMount();
 
   useEffect(() => {
+    dispatch(fetchCommentsByPostId(postId));
+
     if (!post) {
       dispatch(fetchPostById(postId));
-    }
-    if (!comments) {
-      dispatch(fetchCommentsByPostId(postId));
     }
   }, []);
 
@@ -94,20 +91,34 @@ const Post: FC = () => {
                 {post.body}
               </Typography>
             </Grid>
-            <Grid item lg={3}>
-              <Typography variant="h4" color="white">
-                {t('comments')}
-              </Typography>
-            </Grid>
-            <Grid item lg={9}>
-              <Grid container className={styles.container}>
-                {comments.map(({ id, name, email, body }) => (
-                  <Grid item key={id} marginBottom={2}>
-                    <Comment name={name} email={email} body={body} />
+            {commentsByPostIds && (
+              <>
+                <Grid item lg={3}>
+                  <Typography variant="h4" color="white">
+                    {t('comments')}
+                  </Typography>
+                </Grid>
+                <Grid item lg={9}>
+                  <Grid container className={styles.container}>
+                    {commentsByPostIds.map(commentId => {
+                      const comment = comments.entities[commentId];
+
+                      if (!comment) {
+                        return null;
+                      }
+
+                      const { id, name, email, body } = comment;
+
+                      return (
+                        <Grid item key={id} marginBottom={2}>
+                          <Comment name={name} email={email} body={body} />
+                        </Grid>
+                      );
+                    })}
                   </Grid>
-                ))}
-              </Grid>
-            </Grid>
+                </Grid>
+              </>
+            )}
           </Grid>
         </Fade>
       </Grid>

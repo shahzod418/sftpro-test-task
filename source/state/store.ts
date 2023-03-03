@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import commentsReducer from './slices/comments';
+import commentsByPostIds from './slices/commentsByPost';
 import postsReducer from './slices/posts';
 
 export const store = configureStore({
@@ -8,6 +9,7 @@ export const store = configureStore({
   reducer: {
     posts: postsReducer,
     comments: commentsReducer,
+    commentsByPostIds: commentsByPostIds,
   },
 });
 
