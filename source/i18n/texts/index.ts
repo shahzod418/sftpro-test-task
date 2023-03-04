@@ -13,6 +13,9 @@ const en: I18n = {
     create: 'Create',
     edit: 'Edit',
     delete: 'Delete',
+    album: 'Album',
+    userId: 'User ID',
+    submit: 'Submit',
   },
 };
 

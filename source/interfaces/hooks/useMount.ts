@@ -1,4 +1,6 @@
+import type { Path } from '@constants/routes';
+
 export type UseMount = {
   mount: boolean;
-  handleNavigate: (path: string) => () => void;
+  handleNavigate: (path: Path) => () => void;
 };

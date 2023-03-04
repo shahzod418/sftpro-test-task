@@ -54,6 +54,10 @@ module.exports = {
             pattern: '@hooks/**',
             group: 'parent',
           },
+          {
+            pattern: '@constants/**',
+            group: 'parent',
+          },
         ],
         pathGroupsExcludedImportTypes: ['builtin', 'parent', 'type'],
         groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'object', 'type', 'index'],

@@ -30,6 +30,7 @@ module.exports = {
       '@state': resolve(__dirname, 'source/state'),
       '@interfaces': resolve(__dirname, 'source/interfaces'),
       '@hooks': resolve(__dirname, 'source/hooks'),
+      '@constants': resolve('source/constants'),
     },
     extensions: ['.tsx', '.ts', '.js'],
   },

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import type { Path } from '@constants/routes';
 import type { UseMount } from '@interfaces/hooks/useMount';
 
 export const useMount = (): UseMount => {
@@ -10,7 +11,7 @@ export const useMount = (): UseMount => {
   let timeout: NodeJS.Timeout | null = null;
 
   const handleNavigate = useCallback(
-    (path: string) => (): void => {
+    (path: Path) => (): void => {
       setMount(false);
       timeout = setTimeout(() => {
         navigate(`/${path}`);

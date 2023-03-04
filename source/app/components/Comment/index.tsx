@@ -1,57 +1,22 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import React from 'react';
 
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  IconButton,
-  Menu,
-  MenuItem,
-  Typography,
-} from '@mui/material';
+import { Card, CardContent, Typography } from '@mui/material';
 
-import type { FC, MouseEvent } from 'react';
+import CommentHeader from '@components/CommentHeader';
+
+import type { FC } from 'react';
 
 type Props = {
+  commentId: number;
   name: string;
   email: string;
   body: string;
 };
 
-const Comment: FC<Props> = ({ name, email, body }) => {
-  const { t } = useTranslation();
-
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-
-  const handleClick = (event: MouseEvent<HTMLButtonElement>): void => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = (): void => {
-    setAnchorEl(null);
-  };
-
+const Comment: FC<Props> = ({ commentId, name, email, body }) => {
   return (
     <Card variant="outlined">
-      <CardHeader
-        avatar={<AccountCircleIcon color="primary" />}
-        action={
-          <>
-            <IconButton onClick={handleClick}>
-              <MoreVertIcon />
-            </IconButton>
-            <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-              <MenuItem onClick={handleClose}>{t('edit')}</MenuItem>
-              <MenuItem onClick={handleClose}>{t('delete')}</MenuItem>
-            </Menu>
-          </>
-        }
-        title={name}
-        subheader={email}
-      />
+      <CommentHeader commentId={commentId} name={name} email={email} />
       <CardContent>
         <Typography variant="body1">{body}</Typography>
       </CardContent>

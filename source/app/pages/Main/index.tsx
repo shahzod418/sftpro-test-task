@@ -6,7 +6,7 @@ import NewspaperIcon from '@mui/icons-material/Newspaper';
 import PhotoAlbumIcon from '@mui/icons-material/PhotoAlbum';
 import { Grid, Paper, Slide, Typography } from '@mui/material';
 
-import Translate from '@components/Translate';
+import { Path } from '@constants/routes';
 import { useMount } from '@hooks/useMount';
 
 import styles from './style.m.scss';
@@ -19,22 +19,21 @@ const MainPage: FC = () => {
 
   return (
     <>
-      <Translate mount={mount} />
       <Slide direction="up" in={mount}>
         <Grid container justifyContent="center" margin="auto">
-          <Grid item xs={12} lg={3} onClick={handleNavigate('posts')}>
+          <Grid item xs={12} lg={3} onClick={handleNavigate(Path.Posts)}>
             <Paper elevation={0} className={styles.paper}>
               <NewspaperIcon style={{ fontSize: '10em' }} />
               <Typography variant="h2">{t('posts')}</Typography>
             </Paper>
           </Grid>
-          <Grid item xs={12} lg={3} onClick={handleNavigate('albums')}>
+          <Grid item xs={12} lg={3} onClick={handleNavigate(Path.Albums)}>
             <Paper elevation={0} className={styles.paper}>
               <PhotoAlbumIcon style={{ fontSize: '10em' }} />
               <Typography variant="h2">{t('albums')}</Typography>
             </Paper>
           </Grid>
-          <Grid item xs={12} lg={3} onClick={handleNavigate('todos')}>
+          <Grid item xs={12} lg={3} onClick={handleNavigate(Path.ToDos)}>
             <Paper elevation={0} className={styles.paper}>
               <DashboardCustomizeIcon style={{ fontSize: '10em' }} />
               <Typography variant="h2">{t('toDo')}</Typography>

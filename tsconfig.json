@@ -21,7 +21,8 @@
       "@pages/*": ["./source/app/pages/*"],
       "@state/*": ["./source/state/*"],
       "@interfaces/*": ["./source/interfaces/*"],
-      "@hooks/*": ["./source/hooks/*"]
+      "@hooks/*": ["./source/hooks/*"],
+      "@constants/*": ["./source/constants/*"]
     }
   },
   "include": ["source/**/*", "./source/i18n/i18next.d.ts", "./custom.d.ts"]

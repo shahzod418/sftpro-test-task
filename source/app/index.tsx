@@ -4,6 +4,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
+import { Path } from '@constants/routes';
+import Albums from '@pages/Albums';
 import ErrorPage from '@pages/Error';
 import MainPage from '@pages/Main';
 import Post from '@pages/Post';
@@ -14,19 +16,23 @@ import type { FC } from 'react';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: Path.Main,
     element: <MainPage />,
   },
   {
-    path: '/posts',
+    path: Path.Posts,
     element: <Posts />,
   },
   {
-    path: '/posts/:postId',
+    path: Path.PostById,
     element: <Post />,
   },
   {
-    path: '*',
+    path: Path.Albums,
+    element: <Albums />,
+  },
+  {
+    path: Path.Error,
     element: <ErrorPage />,
   },
 ]);

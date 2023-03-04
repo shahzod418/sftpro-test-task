@@ -1,17 +1,21 @@
+import { LoadingStatus } from '@interfaces/state/loadingStatus';
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 
-import { fetchCommentsByPostId } from '@state/thunks/comments';
+import { pendingReducer } from '@state/reducers/pending';
+import { rejectedReducer } from '@state/reducers/rejected';
+import { fetchCommentsByPostId, removeComment } from '@state/thunks/comment';
+import { removePost } from '@state/thunks/post';
 
-import type { Comment } from '@interfaces/state/comments';
+import type { Comment } from '@interfaces/state/comment';
 import type { InitialState } from '@interfaces/state/initialState';
-import type { PayloadAction } from '@reduxjs/toolkit';
+import type { EntityId, PayloadAction } from '@reduxjs/toolkit';
 
 const commentsAdapter = createEntityAdapter<Comment>();
 
 const commentsSlice = createSlice({
   name: 'comments',
   initialState: commentsAdapter.getInitialState<InitialState>({
-    loadingStatus: 'idle',
+    loadingStatus: LoadingStatus.Idle,
     error: null,
   }),
   reducers: {},
@@ -19,13 +23,31 @@ const commentsSlice = createSlice({
     builder
       .addCase(fetchCommentsByPostId.fulfilled, (state, action: PayloadAction<Comment[]>) => {
         commentsAdapter.addMany(state, action);
-        state.loadingStatus = 'idle';
+        state.loadingStatus = LoadingStatus.Idle;
         state.error = null;
       })
-      .addCase(fetchCommentsByPostId.rejected, (state, action) => {
-        state.loadingStatus = 'failed';
-        state.error = action.error;
-      });
+      .addCase(removeComment.fulfilled, (state, action) => {
+        commentsAdapter.removeOne(state, action);
+        state.loadingStatus = LoadingStatus.Idle;
+        state.error = null;
+      })
+
+      .addCase(removePost.fulfilled, (state, action) => {
+        const commentToRemoveIds = state.ids.reduce((acc: EntityId[], id) => {
+          if (state.entities[id]?.postId === action.payload) {
+            return [...acc, id];
+          }
+          return acc;
+        }, []);
+
+        commentsAdapter.removeMany(state, commentToRemoveIds);
+      })
+
+      .addCase(fetchCommentsByPostId.pending, pendingReducer)
+      .addCase(removeComment.pending, pendingReducer)
+
+      .addCase(fetchCommentsByPostId.rejected, rejectedReducer)
+      .addCase(removeComment.rejected, rejectedReducer);
   },
 });
 

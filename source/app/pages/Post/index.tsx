@@ -1,24 +1,38 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
+import { number, object, string } from 'yup';
 
-import EditIcon from '@mui/icons-material/Edit';
-import { Fab, Fade, Grid, Slide, Typography } from '@mui/material';
+import { Fade, Grid, Typography } from '@mui/material';
 
 import Comment from '@components/Comment';
+import Header from '@components/Header';
 import Navigation from '@components/Navigation';
+import PostForm from '@components/PostForm';
 import { useAppDispatch, useAppSelector } from '@hooks/redux';
 import { useMount } from '@hooks/useMount';
-import { fetchCommentsByPostId } from '@state/thunks/comments';
-import { fetchPostById } from '@state/thunks/posts';
+import { fetchCommentsByPostId } from '@state/thunks/comment';
+import { fetchPostById, updatePost } from '@state/thunks/post';
 
 import styles from './style.m.scss';
 
+import type { PostUpdatePayload } from '@interfaces/state/post';
 import type { FC } from 'react';
 
+const validationSchema = object<PostUpdatePayload>({
+  userId: number().integer().positive(),
+  title: string(),
+  body: string(),
+});
+
 const Post: FC = () => {
+  const { mount, handleNavigate } = useMount();
+
+  const [open, setOpen] = useState<boolean>(false);
+
   const { t } = useTranslation();
   const params = useParams<{ postId: string }>();
+  const dispatch = useAppDispatch();
 
   const postId = Number(params.postId);
   if (!postId) {
@@ -31,9 +45,27 @@ const Post: FC = () => {
     state => state.commentsByPostIds.entities[postId] || null,
   );
 
-  const dispatch = useAppDispatch();
+  const handleEdit = (): void => {
+    setOpen(true);
+  };
 
-  const { mount, handleNavigate } = useMount();
+  const handleSubmit = (values: PostUpdatePayload['data']): void => {
+    if (!post?.id) {
+      return;
+    }
+
+    const payload: PostUpdatePayload = {
+      postId: post?.id,
+      data: values,
+    };
+
+    dispatch(updatePost(payload));
+    setOpen(false);
+  };
+
+  const handleClose = (): void => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     dispatch(fetchCommentsByPostId(postId));
@@ -54,51 +86,37 @@ const Post: FC = () => {
   return (
     <>
       <Grid container paddingX={24} paddingTop={4}>
-        <Slide in={mount} direction="down">
-          <Grid container justifyContent="space-between" alignItems="center">
-            <Grid item>
-              <Typography variant="h3" color="white">
-                {t('post')}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Fab variant="extended" color="warning">
-                <EditIcon sx={{ mr: 2 }} />
-                {t('edit')}
-              </Fab>
-            </Grid>
-          </Grid>
-        </Slide>
+        <Header mount={mount} header={t('post')} edit onEdit={handleEdit} />
         <Fade in={mount}>
           <Grid container rowGap={4} marginTop={4}>
-            <Grid item lg={3}>
+            <Grid item xs={12} lg={3}>
               <Typography variant="h4" color="white">
                 {t('title')}
               </Typography>
             </Grid>
-            <Grid item lg={9}>
+            <Grid item xs={12} lg={9}>
               <Typography variant="h6" color="white">
                 {post.title}
               </Typography>
             </Grid>
-            <Grid item lg={3}>
+            <Grid item xs={12} lg={3}>
               <Typography variant="h4" color="white">
                 {t('body')}
               </Typography>
             </Grid>
-            <Grid item lg={9}>
+            <Grid item xs={12} lg={9}>
               <Typography variant="h6" color="white">
                 {post.body}
               </Typography>
             </Grid>
             {commentsByPostIds && (
               <>
-                <Grid item lg={3}>
+                <Grid item xs={12} lg={3}>
                   <Typography variant="h4" color="white">
                     {t('comments')}
                   </Typography>
                 </Grid>
-                <Grid item lg={9}>
+                <Grid item xs={12} lg={9}>
                   <Grid container className={styles.container}>
                     {commentsByPostIds.map(commentId => {
                       const comment = comments.entities[commentId];
@@ -111,7 +129,7 @@ const Post: FC = () => {
 
                       return (
                         <Grid item key={id} marginBottom={2}>
-                          <Comment name={name} email={email} body={body} />
+                          <Comment commentId={id} name={name} email={email} body={body} />
                         </Grid>
                       );
                     })}
@@ -123,6 +141,18 @@ const Post: FC = () => {
         </Fade>
       </Grid>
       <Navigation mount={mount} handleNavigate={handleNavigate} />
+      <PostForm
+        title={`${t('edit')} ${t('post')}`}
+        open={open}
+        onClose={handleClose}
+        initialValues={{
+          userId: post.userId,
+          title: post.title,
+          body: post.body,
+        }}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      />
     </>
   );
 };

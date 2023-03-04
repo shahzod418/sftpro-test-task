@@ -1,0 +1,41 @@
+.container {
+  position: relative;
+  animation: 1.2s ease-in-out 0s normal none infinite running wiggle;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 5px;
+  min-height: 150px;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.button {
+  position: absolute !important;
+  right: 0;
+  top: 0;
+
+  transform: translateX(40%);
+}
+
+@keyframes wiggle {
+  0%,
+  50%,
+  100% {
+    transform: rotate(0deg);
+  }
+  10%,
+  30% {
+    transform: rotate(-1deg);
+  }
+  20%,
+  40% {
+    transform: rotate(1deg);
+  }
+}

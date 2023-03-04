@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import albumsReducer from './slices/albums';
 import commentsReducer from './slices/comments';
 import commentsByPostIds from './slices/commentsByPost';
 import postsReducer from './slices/posts';
@@ -10,6 +11,7 @@ export const store = configureStore({
     posts: postsReducer,
     comments: commentsReducer,
     commentsByPostIds: commentsByPostIds,
+    albums: albumsReducer,
   },
 });
 

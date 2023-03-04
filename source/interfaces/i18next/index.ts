@@ -11,5 +11,8 @@ export type I18n = {
     create: string;
     edit: string;
     delete: string;
+    album: string;
+    userId: string;
+    submit: string;
   };
 };

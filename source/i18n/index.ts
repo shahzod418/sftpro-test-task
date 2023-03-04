@@ -1,13 +1,9 @@
 import { use } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import en from './en';
-import ru from './ru';
+import texts from './texts';
 
-use(initReactI18next).init<typeof en>({
+use(initReactI18next).init<typeof texts>({
   fallbackLng: 'en',
-  resources: {
-    ru,
-    en,
-  },
+  resources: { en: texts },
 });
