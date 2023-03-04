@@ -1,3 +1,4 @@
+import { LoadingStatus } from '@interfaces/state/loadingStatus';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +10,7 @@ import CustomCard from '@components/CustomCard';
 import Header from '@components/Header';
 import Navigation from '@components/Navigation';
 import PostForm from '@components/PostForm';
+import PostsSkeleton from '@components/PostsSkeleton';
 import { getPostByIdPath } from '@constants/routes';
 import { useAppDispatch, useAppSelector } from '@hooks/redux';
 import { useMount } from '@hooks/useMount';
@@ -80,10 +82,13 @@ const Posts: FC = () => {
           edit
           onEdit={handleEdit}
         />
-        {posts.ids.length !== 0 && (
-          <Fade in={mount}>
-            <Grid container spacing={2} justifyContent="center" className={styles.container}>
-              {posts.ids.map(id => (
+        <Fade in={mount}>
+          <Grid container spacing={2} justifyContent="center" className={styles.container}>
+            {posts.loadingStatus !== LoadingStatus.Idle ? (
+              <PostsSkeleton />
+            ) : (
+              posts.ids.length !== 0 &&
+              posts.ids.map(id => (
                 <CustomCard
                   key={id}
                   title={posts.entities[id]?.title || ''}
@@ -91,10 +96,10 @@ const Posts: FC = () => {
                   onClick={handleClick(id)}
                   asyncThunk={removePost(id)}
                 />
-              ))}
-            </Grid>
-          </Fade>
-        )}
+              ))
+            )}
+          </Grid>
+        </Fade>
       </Grid>
       <Navigation mount={mount} handleNavigate={handleNavigate} />
       <PostForm

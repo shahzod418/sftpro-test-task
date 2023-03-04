@@ -6,9 +6,11 @@ import { number, object, string } from 'yup';
 import { Fade, Grid, Typography } from '@mui/material';
 
 import Comment from '@components/Comment';
+import CommentsSkeleton from '@components/CommentsSkeleton';
 import Header from '@components/Header';
 import Navigation from '@components/Navigation';
 import PostForm from '@components/PostForm';
+import PostText from '@components/PostText';
 import { useAppDispatch, useAppSelector } from '@hooks/redux';
 import { useMount } from '@hooks/useMount';
 import { fetchCommentsByPostId } from '@state/thunks/comment';
@@ -75,84 +77,60 @@ const Post: FC = () => {
     }
   }, []);
 
-  if (!post) {
-    return null;
-  }
-
-  if (!comments) {
-    return null;
-  }
-
   return (
     <>
       <Grid container paddingX={24} paddingTop={4}>
         <Header mount={mount} header={t('post')} edit onEdit={handleEdit} />
         <Fade in={mount}>
           <Grid container rowGap={4} marginTop={4}>
-            <Grid item xs={12} lg={3}>
+            <PostText header={t('title')} text={post?.title} />
+            <PostText header={t('body')} text={post?.body} />
+            <Grid item xs={11} lg={3}>
               <Typography variant="h4" color="white">
-                {t('title')}
+                {t('comments')}
               </Typography>
             </Grid>
-            <Grid item xs={12} lg={9}>
-              <Typography variant="h6" color="white">
-                {post.title}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} lg={3}>
-              <Typography variant="h4" color="white">
-                {t('body')}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} lg={9}>
-              <Typography variant="h6" color="white">
-                {post.body}
-              </Typography>
-            </Grid>
-            {commentsByPostIds && (
-              <>
-                <Grid item xs={12} lg={3}>
-                  <Typography variant="h4" color="white">
-                    {t('comments')}
-                  </Typography>
-                </Grid>
-                <Grid item xs={12} lg={9}>
-                  <Grid container className={styles.container}>
-                    {commentsByPostIds.map(commentId => {
-                      const comment = comments.entities[commentId];
+            <Grid item xs={11} lg={8}>
+              <Grid container className={styles.container} justifyContent="center">
+                {!commentsByPostIds ? (
+                  <CommentsSkeleton />
+                ) : (
+                  commentsByPostIds.map(commentId => {
+                    const comment = comments.entities[commentId];
 
-                      if (!comment) {
-                        return null;
-                      }
+                    if (!comment) {
+                      return null;
+                    }
 
-                      const { id, name, email, body } = comment;
+                    const { id, name, email, body } = comment;
 
-                      return (
-                        <Grid item key={id} marginBottom={2}>
-                          <Comment commentId={id} name={name} email={email} body={body} />
-                        </Grid>
-                      );
-                    })}
-                  </Grid>
-                </Grid>
-              </>
-            )}
+                    return (
+                      <Grid item xs={11} key={id} marginBottom={2}>
+                        <Comment commentId={id} name={name} email={email} body={body} />
+                      </Grid>
+                    );
+                  })
+                )}
+              </Grid>
+            </Grid>
           </Grid>
         </Fade>
       </Grid>
       <Navigation mount={mount} handleNavigate={handleNavigate} />
-      <PostForm
-        title={`${t('edit')} ${t('post')}`}
-        open={open}
-        onClose={handleClose}
-        initialValues={{
-          userId: post.userId,
-          title: post.title,
-          body: post.body,
-        }}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      />
+      {post && (
+        <PostForm
+          title={`${t('edit')} ${t('post')}`}
+          open={open}
+          onClose={handleClose}
+          initialValues={{
+            userId: post.userId,
+            title: post.title,
+            body: post.body,
+          }}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        />
+      )}
     </>
   );
 };

@@ -14,7 +14,7 @@ const ErrorPage: FC = () => {
   return (
     <Grid container spacing={2} justifyContent="center" margin="auto">
       <Paper elevation={0} className={styles.paper}>
-        <ErrorIcon style={{ fontSize: '15em' }} />
+        <ErrorIcon className={styles.icon} />
         <Typography variant="h2" color="white">
           {t('error')}
         </Typography>

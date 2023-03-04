@@ -23,19 +23,19 @@ const MainPage: FC = () => {
         <Grid container justifyContent="center" margin="auto">
           <Grid item xs={12} lg={3} onClick={handleNavigate(Path.Posts)}>
             <Paper elevation={0} className={styles.paper}>
-              <NewspaperIcon style={{ fontSize: '10em' }} />
+              <NewspaperIcon className={styles.icon} />
               <Typography variant="h2">{t('posts')}</Typography>
             </Paper>
           </Grid>
           <Grid item xs={12} lg={3} onClick={handleNavigate(Path.Albums)}>
             <Paper elevation={0} className={styles.paper}>
-              <PhotoAlbumIcon style={{ fontSize: '10em' }} />
+              <PhotoAlbumIcon className={styles.icon} />
               <Typography variant="h2">{t('albums')}</Typography>
             </Paper>
           </Grid>
           <Grid item xs={12} lg={3} onClick={handleNavigate(Path.ToDos)}>
             <Paper elevation={0} className={styles.paper}>
-              <DashboardCustomizeIcon style={{ fontSize: '10em' }} />
+              <DashboardCustomizeIcon className={styles.icon} />
               <Typography variant="h2">{t('toDo')}</Typography>
             </Paper>
           </Grid>
