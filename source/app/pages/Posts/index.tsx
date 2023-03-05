@@ -52,8 +52,12 @@ const Posts: FC = () => {
     navigate(getPostByIdPath(postId));
   };
 
-  const handleCreate = (): void => {
+  const handleOpen = (): void => {
     setOpen(true);
+  };
+
+  const handleClose = (): void => {
+    setOpen(false);
   };
 
   const handleEdit = (): void => {
@@ -62,10 +66,6 @@ const Posts: FC = () => {
 
   const handleSubmit = (values: PostCreatePayload): void => {
     dispatch(addPost(values));
-    setOpen(false);
-  };
-
-  const handleClose = (): void => {
     setOpen(false);
   };
 
@@ -80,7 +80,7 @@ const Posts: FC = () => {
         edit
         header={t('posts')}
         mount={mount}
-        onCreate={handleCreate}
+        onCreate={handleOpen}
         onEdit={handleEdit}
       />
       <Fade in={mount}>

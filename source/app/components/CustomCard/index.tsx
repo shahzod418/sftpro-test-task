@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Delete } from '@mui/icons-material';
 import { Card, CardContent, Grid, IconButton, Typography } from '@mui/material';
 
 import { useAppDispatch } from '@hooks/redux';
@@ -36,7 +36,7 @@ const CustomCard: FC<Props> = ({ title, isEdit, onClick, asyncThunk }) => {
       </Card>
       {isEdit && (
         <IconButton className={styles.button} onClick={handleDelete}>
-          <DeleteIcon color="error" />
+          <Delete color="error" />
         </IconButton>
       )}
     </Grid>

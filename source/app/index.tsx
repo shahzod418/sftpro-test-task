@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
+import Album from '@pages/Album';
 import Albums from '@pages/Albums';
 import ErrorPage from '@pages/Error';
 import MainPage from '@pages/Main';
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
   {
     path: Path.Albums,
     element: <Albums />,
+  },
+  {
+    path: Path.AlbumById,
+    element: <Album />,
   },
   {
     path: Path.Error,

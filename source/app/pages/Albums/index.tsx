@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { Fade, Grid } from '@mui/material';
+import { Container, Fade, Grid } from '@mui/material';
 
 import CustomCard from '@components/CustomCard';
 import Header from '@components/Header';
@@ -45,27 +45,31 @@ const Albums: FC = () => {
   }, []);
 
   return (
-    <>
-      <Grid container paddingTop={4} paddingX={24}>
-        <Header create edit header={t('albums')} mount={mount} onEdit={handleEdit} />
-        {albums.ids.length !== 0 && (
-          <Fade in={mount}>
-            <Grid container className={styles.container} justifyContent="center" spacing={2}>
-              {albums.ids.map(id => (
-                <CustomCard
-                  key={id}
-                  asyncThunk={removeAlbum(id)}
-                  isEdit={isEdit}
-                  title={albums.entities[id]?.title || ''}
-                  onClick={handleClick(id)}
-                />
-              ))}
-            </Grid>
-          </Fade>
-        )}
-      </Grid>
+    <Container className={styles.container} sx={{ paddingTop: 4 }}>
+      <Header edit header={t('albums')} mount={mount} onEdit={handleEdit} />
+      {albums.ids.length !== 0 && (
+        <Fade in={mount}>
+          <Grid
+            container
+            className={styles['album-section']}
+            justifyContent="center"
+            marginTop={2}
+            spacing={2}
+          >
+            {albums.ids.map(id => (
+              <CustomCard
+                key={id}
+                asyncThunk={removeAlbum(id)}
+                isEdit={isEdit}
+                title={albums.entities[id]?.title || ''}
+                onClick={handleClick(id)}
+              />
+            ))}
+          </Grid>
+        </Fade>
+      )}
       <Navigation handleNavigate={handleNavigate} mount={mount} />
-    </>
+    </Container>
   );
 };
 

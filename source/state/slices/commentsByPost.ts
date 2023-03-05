@@ -4,11 +4,11 @@ import { fetchCommentsByPostId, removeComment } from '@state/thunks/comment';
 import { removePost } from '@state/thunks/post';
 
 import type { Comment } from '@interfaces/state/comment';
-import type { PayloadAction } from '@reduxjs/toolkit';
+import type { EntityId, PayloadAction } from '@reduxjs/toolkit';
 
 const commentsByPostIdsSlice = createSlice({
   name: 'commentsByPostIds',
-  initialState: { ids: [] as number[], entities: {} as { [key: string]: number[] } },
+  initialState: { ids: [] as EntityId[], entities: {} as { [key: EntityId]: EntityId[] } },
   reducers: {},
   extraReducers: builder => {
     builder
@@ -20,7 +20,7 @@ const commentsByPostIdsSlice = createSlice({
         }
         state.entities[postId] = action.payload.map(({ id }) => id);
       })
-      .addCase(removeComment.fulfilled, (state, action) => {
+      .addCase(removeComment.fulfilled, (state, action: PayloadAction<EntityId>) => {
         const commentId = action.payload;
 
         const postId = Object.keys(state.entities).find(key =>
@@ -32,7 +32,7 @@ const commentsByPostIdsSlice = createSlice({
           state.entities[postId].splice(index, 1);
         }
       })
-      .addCase(removePost.fulfilled, (state, action) => {
+      .addCase(removePost.fulfilled, (state, action: PayloadAction<EntityId>) => {
         const index = state.ids.findIndex(id => id === action.payload);
 
         state.ids.splice(index, 1);

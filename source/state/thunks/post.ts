@@ -33,6 +33,6 @@ export const updatePost = createAsyncThunk(
 );
 
 export const removePost = createAsyncThunk('posts/removePost', async (postId: EntityId) => {
-  await axios.delete(`https://jsonplaceholder.typicode.com/posts/${postId}`);
+  await axios.delete<void>(`https://jsonplaceholder.typicode.com/posts/${postId}`);
   return postId;
 });

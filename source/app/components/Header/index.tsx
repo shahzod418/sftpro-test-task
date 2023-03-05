@@ -1,8 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
+import { Add, Edit } from '@mui/icons-material';
 import { Fab, Grid, Slide, Typography } from '@mui/material';
 
 import { useDeviceDetect } from '@hooks/useDeviceDetect';
@@ -34,7 +33,7 @@ const Header: FC<Props> = ({ mount, header, create, onCreate, edit, onEdit }) =>
         {create && (
           <Grid item sx={{ mr: 2 }}>
             <Fab color="info" variant="extended" onClick={onCreate}>
-              <AddIcon sx={isMobile ? {} : { mr: 2 }} />
+              <Add sx={isMobile ? {} : { mr: 2 }} />
               {isMobile ? '' : t('create')}
             </Fab>
           </Grid>
@@ -42,7 +41,7 @@ const Header: FC<Props> = ({ mount, header, create, onCreate, edit, onEdit }) =>
         {edit && (
           <Grid item>
             <Fab color="warning" variant="extended" onClick={onEdit}>
-              <EditIcon sx={isMobile ? {} : { mr: 2 }} />
+              <Edit sx={isMobile ? {} : { mr: 2 }} />
               {isMobile ? '' : t('edit')}
             </Fab>
           </Grid>

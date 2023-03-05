@@ -9,7 +9,12 @@ export const fetchAlbums = createAsyncThunk('albums/fetchAlbums', async () => {
   return response.data;
 });
 
+export const fetchAlbumById = createAsyncThunk('albums/fetchAlbumById', async (albumId: number) => {
+  const response = await axios.get<Album>(`https://jsonplaceholder.typicode.com/albums/${albumId}`);
+  return response.data;
+});
+
 export const removeAlbum = createAsyncThunk('albums/removeAlbum', async (albumId: EntityId) => {
-  await axios.delete(`https://jsonplaceholder.typicode.com/albums/${albumId}`);
+  await axios.delete<void>(`https://jsonplaceholder.typicode.com/albums/${albumId}`);
   return albumId;
 });

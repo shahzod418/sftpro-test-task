@@ -38,9 +38,6 @@ const Post: FC = () => {
   const dispatch = useAppDispatch();
 
   const postId = Number(params.postId);
-  if (!postId) {
-    return null;
-  }
 
   const comments = useAppSelector(state => state.comments);
   const post = useAppSelector(state => state.posts.entities[postId] || null);
@@ -48,8 +45,12 @@ const Post: FC = () => {
     state => state.commentsByPostIds.entities[postId] || null,
   );
 
-  const handleEdit = (): void => {
+  const handleOpen = (): void => {
     setOpen(true);
+  };
+
+  const handleClose = (): void => {
+    setOpen(false);
   };
 
   const handleSubmit = (values: PostUpdatePayload['data']): void => {
@@ -66,10 +67,6 @@ const Post: FC = () => {
     setOpen(false);
   };
 
-  const handleClose = (): void => {
-    setOpen(false);
-  };
-
   useEffect(() => {
     dispatch(fetchCommentsByPostId(postId));
 
@@ -80,7 +77,7 @@ const Post: FC = () => {
 
   return (
     <Container className={styles.container} sx={{ paddingTop: 4 }}>
-      <Header edit header={t('post')} mount={mount} onEdit={handleEdit} />
+      <Header edit header={t('post')} mount={mount} onEdit={handleOpen} />
       <Fade in={mount}>
         <Grid container justifyContent="center" marginTop={4} rowGap={4}>
           <PostText header={t('title')} text={post?.title} />

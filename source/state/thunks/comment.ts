@@ -16,7 +16,7 @@ export const fetchCommentsByPostId = createAsyncThunk(
 export const removeComment = createAsyncThunk(
   'comments/removeComment',
   async (commentId: number) => {
-    await axios.delete<Comment>(`https://jsonplaceholder.typicode.com/comments/${commentId}`);
+    await axios.delete<void>(`https://jsonplaceholder.typicode.com/comments/${commentId}`);
     return commentId;
   },
 );

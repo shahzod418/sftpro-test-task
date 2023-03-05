@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { AccountCircle, MoreVert } from '@mui/icons-material';
 import { CardHeader, IconButton, Menu, MenuItem } from '@mui/material';
 
 import { useAppDispatch } from '@hooks/redux';
@@ -39,13 +38,13 @@ const CommentHeader: FC<Props> = ({ commentId, name, email }) => {
 
   return (
     <CardHeader
-      avatar={<AccountCircleIcon color="primary" />}
+      avatar={<AccountCircle color="primary" />}
       subheader={email}
       title={name}
       action={
         <>
           <IconButton onClick={handleClick}>
-            <MoreVertIcon />
+            <MoreVert />
           </IconButton>
           <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
             <MenuItem onClick={handleDelete}>{t('delete')}</MenuItem>

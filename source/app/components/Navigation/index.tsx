@@ -1,9 +1,6 @@
 import React, { memo } from 'react';
 
-import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
-import HomeIcon from '@mui/icons-material/Home';
-import NewspaperIcon from '@mui/icons-material/Newspaper';
-import PhotoAlbumIcon from '@mui/icons-material/PhotoAlbum';
+import { DashboardCustomize, Home, Newspaper, PhotoAlbum } from '@mui/icons-material';
 import { Fab, Grid, Slide } from '@mui/material';
 
 import { Path } from '@constants/routes';
@@ -23,19 +20,19 @@ const navigationPaths: Paths[] = [Path.Main, Path.Posts, Path.Albums, Path.ToDos
 const mappedPaths: Record<Paths, { color: FabTypeMap['props']['color']; icon: ReactElement }> = {
   [Path.Main]: {
     color: 'default',
-    icon: <HomeIcon />,
+    icon: <Home />,
   },
   [Path.Posts]: {
     color: 'info',
-    icon: <NewspaperIcon />,
+    icon: <Newspaper />,
   },
   [Path.Albums]: {
     color: 'success',
-    icon: <PhotoAlbumIcon />,
+    icon: <PhotoAlbum />,
   },
   [Path.ToDos]: {
     color: 'secondary',
-    icon: <DashboardCustomizeIcon />,
+    icon: <DashboardCustomize />,
   },
 };
 

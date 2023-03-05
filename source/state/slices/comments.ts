@@ -26,16 +26,16 @@ const commentsSlice = createSlice({
         state.loadingStatus = LoadingStatus.Idle;
         state.error = null;
       })
-      .addCase(removeComment.fulfilled, (state, action) => {
+      .addCase(removeComment.fulfilled, (state, action: PayloadAction<EntityId>) => {
         commentsAdapter.removeOne(state, action);
         state.loadingStatus = LoadingStatus.Idle;
         state.error = null;
       })
 
-      .addCase(removePost.fulfilled, (state, action) => {
-        const commentToRemoveIds = state.ids.reduce((acc: EntityId[], id) => {
-          if (state.entities[id]?.postId === action.payload) {
-            return [...acc, id];
+      .addCase(removePost.fulfilled, (state, action: PayloadAction<EntityId>) => {
+        const commentToRemoveIds = state.ids.reduce((acc: EntityId[], postId) => {
+          if (state.entities[postId]?.postId === action.payload) {
+            return [...acc, postId];
           }
           return acc;
         }, []);

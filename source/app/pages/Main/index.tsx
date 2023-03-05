@@ -1,10 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
-import NewspaperIcon from '@mui/icons-material/Newspaper';
-import PhotoAlbumIcon from '@mui/icons-material/PhotoAlbum';
-import { Grid, Paper, Slide, Typography } from '@mui/material';
+import { DashboardCustomize, Newspaper, PhotoAlbum } from '@mui/icons-material';
+import { Box, Grid, Slide, Typography } from '@mui/material';
 
 import { useMount } from '@hooks/useMount';
 
@@ -21,24 +19,24 @@ const MainPage: FC = () => {
   return (
     <>
       <Slide direction="up" in={mount}>
-        <Grid container justifyContent="center" margin="auto">
+        <Grid container color="white" gap={4} justifyContent="center" margin="auto">
           <Grid item lg={3} xs={12} onClick={handleNavigate(Path.Posts)}>
-            <Paper className={styles.paper} elevation={0}>
-              <NewspaperIcon className={styles.icon} />
+            <Box className={styles.box}>
+              <Newspaper className={styles.icon} />
               <Typography variant="h2">{t('posts')}</Typography>
-            </Paper>
+            </Box>
           </Grid>
           <Grid item lg={3} xs={12} onClick={handleNavigate(Path.Albums)}>
-            <Paper className={styles.paper} elevation={0}>
-              <PhotoAlbumIcon className={styles.icon} />
+            <Box className={styles.box}>
+              <PhotoAlbum className={styles.icon} />
               <Typography variant="h2">{t('albums')}</Typography>
-            </Paper>
+            </Box>
           </Grid>
           <Grid item lg={3} xs={12} onClick={handleNavigate(Path.ToDos)}>
-            <Paper className={styles.paper} elevation={0}>
-              <DashboardCustomizeIcon className={styles.icon} />
+            <Box className={styles.box}>
+              <DashboardCustomize className={styles.icon} />
               <Typography variant="h2">{t('toDo')}</Typography>
-            </Paper>
+            </Box>
           </Grid>
         </Grid>
       </Slide>

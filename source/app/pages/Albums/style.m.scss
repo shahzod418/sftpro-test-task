@@ -1,4 +1,10 @@
 .container {
+  min-height: 100vh;
+  display: flex !important;
+  flex-direction: column;
+}
+
+.album-section {
   height: 63vh;
   overflow-y: scroll;
 
