@@ -1,4 +1,10 @@
 .container {
+  min-height: 100vh;
+  display: flex !important;
+  flex-direction: column;
+}
+
+.post-section {
   height: 63vh;
   overflow-y: scroll;
 

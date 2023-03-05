@@ -5,6 +5,8 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import { Fab, Grid, Slide, Typography } from '@mui/material';
 
+import { useDeviceDetect } from '@hooks/useDeviceDetect';
+
 import type { FC } from 'react';
 
 type Props = {
@@ -17,29 +19,31 @@ type Props = {
 };
 
 const Header: FC<Props> = ({ mount, header, create, onCreate, edit, onEdit }) => {
+  const { isMobile } = useDeviceDetect();
+
   const { t } = useTranslation();
 
   return (
-    <Slide in={mount} direction="down">
-      <Grid container alignItems="center" marginBottom={2}>
+    <Slide direction="down" in={mount}>
+      <Grid container alignItems="center">
         <Grid item marginRight="auto">
-          <Typography variant="h3" color="white">
+          <Typography color="white" variant="h3">
             {header}
           </Typography>
         </Grid>
         {create && (
           <Grid item sx={{ mr: 2 }}>
-            <Fab variant="extended" color="info" onClick={onCreate}>
-              <AddIcon sx={{ mr: 2 }} />
-              {t('create')}
+            <Fab color="info" variant="extended" onClick={onCreate}>
+              <AddIcon sx={isMobile ? {} : { mr: 2 }} />
+              {isMobile ? '' : t('create')}
             </Fab>
           </Grid>
         )}
         {edit && (
           <Grid item>
-            <Fab variant="extended" color="warning" onClick={onEdit}>
-              <EditIcon sx={{ mr: 2 }} />
-              {t('edit')}
+            <Fab color="warning" variant="extended" onClick={onEdit}>
+              <EditIcon sx={isMobile ? {} : { mr: 2 }} />
+              {isMobile ? '' : t('edit')}
             </Fab>
           </Grid>
         )}

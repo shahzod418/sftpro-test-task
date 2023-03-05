@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { number, object, string } from 'yup';
 
-import { Fade, Grid, Typography } from '@mui/material';
+import { Container, Fade, Grid, Typography } from '@mui/material';
 
 import Comment from '@components/Comment';
 import CommentsSkeleton from '@components/CommentsSkeleton';
@@ -11,6 +11,7 @@ import Header from '@components/Header';
 import Navigation from '@components/Navigation';
 import PostForm from '@components/PostForm';
 import PostText from '@components/PostText';
+
 import { useAppDispatch, useAppSelector } from '@hooks/redux';
 import { useMount } from '@hooks/useMount';
 import { fetchCommentsByPostId } from '@state/thunks/comment';
@@ -78,60 +79,58 @@ const Post: FC = () => {
   }, []);
 
   return (
-    <>
-      <Grid container paddingX={24} paddingTop={4}>
-        <Header mount={mount} header={t('post')} edit onEdit={handleEdit} />
-        <Fade in={mount}>
-          <Grid container rowGap={4} marginTop={4}>
-            <PostText header={t('title')} text={post?.title} />
-            <PostText header={t('body')} text={post?.body} />
-            <Grid item xs={11} lg={3}>
-              <Typography variant="h4" color="white">
-                {t('comments')}
-              </Typography>
-            </Grid>
-            <Grid item xs={11} lg={8}>
-              <Grid container className={styles.container} justifyContent="center">
-                {!commentsByPostIds ? (
-                  <CommentsSkeleton />
-                ) : (
-                  commentsByPostIds.map(commentId => {
-                    const comment = comments.entities[commentId];
+    <Container className={styles.container} sx={{ paddingTop: 4 }}>
+      <Header edit header={t('post')} mount={mount} onEdit={handleEdit} />
+      <Fade in={mount}>
+        <Grid container justifyContent="center" marginTop={4} rowGap={4}>
+          <PostText header={t('title')} text={post?.title} />
+          <PostText header={t('body')} text={post?.body} />
+          <Grid item lg={3} xs={11}>
+            <Typography color="white" variant="h4">
+              {t('comments')}
+            </Typography>
+          </Grid>
+          <Grid item lg={8} xs={11}>
+            <Grid container className={styles['comment-section']} justifyContent="center">
+              {!commentsByPostIds ? (
+                <CommentsSkeleton />
+              ) : (
+                commentsByPostIds.map(commentId => {
+                  const comment = comments.entities[commentId];
 
-                    if (!comment) {
-                      return null;
-                    }
+                  if (!comment) {
+                    return null;
+                  }
 
-                    const { id, name, email, body } = comment;
+                  const { id, name, email, body } = comment;
 
-                    return (
-                      <Grid item xs={11} key={id} marginBottom={2}>
-                        <Comment commentId={id} name={name} email={email} body={body} />
-                      </Grid>
-                    );
-                  })
-                )}
-              </Grid>
+                  return (
+                    <Grid key={id} item marginBottom={2} xs={11}>
+                      <Comment body={body} commentId={id} email={email} name={name} />
+                    </Grid>
+                  );
+                })
+              )}
             </Grid>
           </Grid>
-        </Fade>
-      </Grid>
-      <Navigation mount={mount} handleNavigate={handleNavigate} />
+        </Grid>
+      </Fade>
+      <Navigation handleNavigate={handleNavigate} mount={mount} />
       {post && (
         <PostForm
-          title={`${t('edit')} ${t('post')}`}
           open={open}
-          onClose={handleClose}
+          title={`${t('edit')} ${t('post')}`}
+          validationSchema={validationSchema}
           initialValues={{
             userId: post.userId,
             title: post.title,
             body: post.body,
           }}
-          validationSchema={validationSchema}
+          onClose={handleClose}
           onSubmit={handleSubmit}
         />
       )}
-    </>
+    </Container>
   );
 };
 

@@ -1,4 +1,10 @@
 .container {
+  min-height: 100vh;
+  display: flex !important;
+  flex-direction: column;
+}
+
+.comment-section {
   height: 40vh;
   overflow-y: scroll;
 

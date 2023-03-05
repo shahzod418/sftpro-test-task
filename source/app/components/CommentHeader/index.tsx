@@ -40,6 +40,8 @@ const CommentHeader: FC<Props> = ({ commentId, name, email }) => {
   return (
     <CardHeader
       avatar={<AccountCircleIcon color="primary" />}
+      subheader={email}
+      title={name}
       action={
         <>
           <IconButton onClick={handleClick}>
@@ -50,8 +52,6 @@ const CommentHeader: FC<Props> = ({ commentId, name, email }) => {
           </Menu>
         </>
       }
-      title={name}
-      subheader={email}
     />
   );
 };

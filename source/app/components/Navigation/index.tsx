@@ -43,8 +43,8 @@ const Navigation: FC<Props> = ({ mount, handleNavigate }) => {
   const pathname = location.pathname;
 
   return (
-    <Slide in={mount} direction="up">
-      <Grid container paddingTop={8} paddingRight={24} justifyContent="flex-end" gap={2}>
+    <Slide direction="up" in={mount}>
+      <Grid container gap={2} justifyContent="flex-end" marginTop="auto" paddingY={4}>
         {navigationPaths.map(path => {
           if (`/${path}` === pathname) {
             return null;
@@ -53,7 +53,7 @@ const Navigation: FC<Props> = ({ mount, handleNavigate }) => {
           const { color, icon } = mappedPaths[path];
 
           return (
-            <Fab key={path} onClick={handleNavigate(path)} color={color}>
+            <Fab key={path} color={color} onClick={handleNavigate(path)}>
               {icon}
             </Fab>
           );

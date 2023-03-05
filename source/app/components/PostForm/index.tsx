@@ -2,7 +2,7 @@ import { Form, Formik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Button, Drawer, Grid, TextField, Typography } from '@mui/material';
+import { Button, Container, Drawer, Grid, TextField, Typography } from '@mui/material';
 
 import type { PostCreatePayload, PostUpdatePayload } from '@interfaces/state/post';
 import type { FC, ReactNode } from 'react';
@@ -29,13 +29,13 @@ const PostForm: FC<Props> = ({
 
   return (
     <Drawer anchor="bottom" open={open} onClose={onClose}>
-      <Grid container padding={24} paddingTop={4} justifyContent="center">
-        <Grid item xs={12} marginBottom={4}>
-          <Typography variant="h4" align="center">
+      <Container maxWidth="sm" sx={{ marginX: 'auto', paddingY: 4 }}>
+        <Grid item marginBottom={4} xs={12}>
+          <Typography align="center" variant="h4">
             {title}
           </Typography>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item md={6} xs={12}>
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -47,24 +47,24 @@ const PostForm: FC<Props> = ({
                   <TextField
                     key={value}
                     fullWidth
-                    sx={{ mb: 1 }}
-                    id={value}
-                    label={t(value)}
-                    variant="standard"
-                    value={values[value] || ''}
-                    onChange={handleChange}
                     error={touched[value] && Boolean(errors[value])}
                     helperText={touched[value] && errors[value]}
+                    id={value}
+                    label={t(value)}
+                    sx={{ mb: 1 }}
+                    value={values[value] || ''}
+                    variant="standard"
+                    onChange={handleChange}
                   />
                 ))}
-                <Button variant="contained" fullWidth type="submit" sx={{ mt: 4 }}>
+                <Button fullWidth sx={{ mt: 4 }} type="submit" variant="contained">
                   {t('submit')}
                 </Button>
               </Form>
             )}
           </Formik>
         </Grid>
-      </Grid>
+      </Container>
     </Drawer>
   );
 };

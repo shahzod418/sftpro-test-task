@@ -40,11 +40,11 @@ module.exports = {
           },
           {
             pattern: '@pages/**',
-            group: 'parent',
+            group: 'internal',
           },
           {
             pattern: '@components/**',
-            group: 'parent',
+            group: 'internal',
           },
           {
             pattern: '@state/**',
@@ -56,7 +56,7 @@ module.exports = {
           },
           {
             pattern: '@constants/**',
-            group: 'parent',
+            group: 'object',
           },
         ],
         pathGroupsExcludedImportTypes: ['builtin', 'parent', 'type'],
@@ -100,5 +100,14 @@ module.exports = {
     'no-empty': ['error', { allowEmptyCatch: true }],
     'react/jsx-uses-react': 'error',
     'react/jsx-uses-vars': 'error',
+    'react/jsx-sort-props': [
+      'error',
+      {
+        callbacksLast: true,
+        shorthandFirst: true,
+        multiline: 'last',
+        reservedFirst: ['key'],
+      },
+    ],
   },
 };

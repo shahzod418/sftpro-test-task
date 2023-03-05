@@ -4,13 +4,15 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-import { Path } from '@constants/routes';
 import Albums from '@pages/Albums';
 import ErrorPage from '@pages/Error';
 import MainPage from '@pages/Main';
 import Post from '@pages/Post';
 import Posts from '@pages/Posts';
+
 import { store } from '@state/store';
+
+import { Path } from '@constants/routes';
 
 import type { FC } from 'react';
 

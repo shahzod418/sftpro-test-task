@@ -4,19 +4,21 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { number, object, string } from 'yup';
 
-import { Fade, Grid } from '@mui/material';
+import { Container, Fade, Grid } from '@mui/material';
 
 import CustomCard from '@components/CustomCard';
 import Header from '@components/Header';
 import Navigation from '@components/Navigation';
 import PostForm from '@components/PostForm';
 import PostsSkeleton from '@components/PostsSkeleton';
-import { getPostByIdPath } from '@constants/routes';
+
 import { useAppDispatch, useAppSelector } from '@hooks/redux';
 import { useMount } from '@hooks/useMount';
 import { addPost, fetchPosts, removePost } from '@state/thunks/post';
 
 import styles from './style.m.scss';
+
+import { getPostByIdPath } from '@constants/routes';
 
 import type { PostCreatePayload } from '@interfaces/state/post';
 import type { EntityId } from '@reduxjs/toolkit';
@@ -72,45 +74,49 @@ const Posts: FC = () => {
   }, []);
 
   return (
-    <>
-      <Grid container paddingX={24} paddingTop={4}>
-        <Header
-          mount={mount}
-          header={t('posts')}
-          create
-          onCreate={handleCreate}
-          edit
-          onEdit={handleEdit}
-        />
-        <Fade in={mount}>
-          <Grid container spacing={2} justifyContent="center" className={styles.container}>
-            {posts.loadingStatus !== LoadingStatus.Idle ? (
-              <PostsSkeleton />
-            ) : (
-              posts.ids.length !== 0 &&
-              posts.ids.map(id => (
-                <CustomCard
-                  key={id}
-                  title={posts.entities[id]?.title || ''}
-                  isEdit={isEdit}
-                  onClick={handleClick(id)}
-                  asyncThunk={removePost(id)}
-                />
-              ))
-            )}
-          </Grid>
-        </Fade>
-      </Grid>
-      <Navigation mount={mount} handleNavigate={handleNavigate} />
+    <Container className={styles.container} sx={{ paddingTop: 4 }}>
+      <Header
+        create
+        edit
+        header={t('posts')}
+        mount={mount}
+        onCreate={handleCreate}
+        onEdit={handleEdit}
+      />
+      <Fade in={mount}>
+        <Grid
+          container
+          className={styles['post-section']}
+          justifyContent="center"
+          marginTop={2}
+          spacing={2}
+        >
+          {posts.loadingStatus !== LoadingStatus.Idle ? (
+            <PostsSkeleton />
+          ) : (
+            posts.ids.length !== 0 &&
+            posts.ids.map(id => (
+              <CustomCard
+                key={id}
+                asyncThunk={removePost(id)}
+                isEdit={isEdit}
+                title={posts.entities[id]?.title || ''}
+                onClick={handleClick(id)}
+              />
+            ))
+          )}
+        </Grid>
+      </Fade>
+      <Navigation handleNavigate={handleNavigate} mount={mount} />
       <PostForm
-        title={`${t('create')} ${t('post')}`}
-        open={open}
-        onClose={handleClose}
         initialValues={initialValues}
+        open={open}
+        title={`${t('create')} ${t('post')}`}
         validationSchema={validationSchema}
+        onClose={handleClose}
         onSubmit={handleSubmit}
       />
-    </>
+    </Container>
   );
 };
 

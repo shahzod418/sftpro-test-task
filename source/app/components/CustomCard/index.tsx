@@ -26,10 +26,10 @@ const CustomCard: FC<Props> = ({ title, isEdit, onClick, asyncThunk }) => {
   };
 
   return (
-    <Grid item xs={10} lg={5} xl={3} onClick={onClick} className={isEdit ? styles.container : ''}>
-      <Card variant="outlined" className={styles.card}>
+    <Grid item className={isEdit ? styles.container : ''} lg={5} xl={3} xs={10} onClick={onClick}>
+      <Card className={styles.card} variant="outlined">
         <CardContent>
-          <Typography variant="h6" align="center">
+          <Typography align="center" variant="h6">
             {title}
           </Typography>
         </CardContent>

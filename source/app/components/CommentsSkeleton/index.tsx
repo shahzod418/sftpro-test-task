@@ -9,22 +9,22 @@ import type { FC } from 'react';
 const CommentsSkeleton: FC = () => {
   return (
     <>
-      <Grid item xs={11} className={styles.box}>
+      <Grid item className={styles.box} xs={11}>
         <Skeleton className={styles.skeleton} />
       </Grid>
-      <Grid item xs={11} className={styles.box}>
+      <Grid item className={styles.box} xs={11}>
         <Skeleton className={styles.skeleton} />
       </Grid>
-      <Grid item xs={11} className={styles.box}>
+      <Grid item className={styles.box} xs={11}>
         <Skeleton className={styles.skeleton} />
       </Grid>
-      <Grid item xs={11} className={styles.box}>
+      <Grid item className={styles.box} xs={11}>
         <Skeleton className={styles.skeleton} />
       </Grid>
-      <Grid item xs={11} className={styles.box}>
+      <Grid item className={styles.box} xs={11}>
         <Skeleton className={styles.skeleton} />
       </Grid>
-      <Grid item xs={11} className={styles.box}>
+      <Grid item className={styles.box} xs={11}>
         <Skeleton className={styles.skeleton} />
       </Grid>
     </>

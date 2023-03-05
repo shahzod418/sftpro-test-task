@@ -16,7 +16,7 @@ type Props = {
 const Comment: FC<Props> = ({ commentId, name, email, body }) => {
   return (
     <Card variant="outlined">
-      <CommentHeader commentId={commentId} name={name} email={email} />
+      <CommentHeader commentId={commentId} email={email} name={name} />
       <CardContent>
         <Typography variant="body1">{body}</Typography>
       </CardContent>

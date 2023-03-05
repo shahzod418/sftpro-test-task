@@ -12,13 +12,13 @@ type Props = {
 const PostText: FC<Props> = ({ header, text }) => {
   return (
     <>
-      <Grid item xs={11} lg={3}>
-        <Typography variant="h4" color="white">
+      <Grid item lg={3} xs={11}>
+        <Typography color="white" variant="h4">
           {header}
         </Typography>
       </Grid>
-      <Grid item xs={11} lg={8}>
-        <Typography variant="h6" color="white">
+      <Grid item lg={8} xs={11}>
+        <Typography color="white" variant="h6">
           {text ? text : <Skeleton />}
         </Typography>
       </Grid>

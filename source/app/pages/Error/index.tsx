@@ -12,10 +12,10 @@ const ErrorPage: FC = () => {
   const { t } = useTranslation();
 
   return (
-    <Grid container spacing={2} justifyContent="center" margin="auto">
-      <Paper elevation={0} className={styles.paper}>
+    <Grid container justifyContent="center" margin="auto" spacing={2}>
+      <Paper className={styles.paper} elevation={0}>
         <ErrorIcon className={styles.icon} />
-        <Typography variant="h2" color="white">
+        <Typography color="white" variant="h2">
           {t('error')}
         </Typography>
       </Paper>
