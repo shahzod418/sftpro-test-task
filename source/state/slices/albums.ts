@@ -5,18 +5,16 @@ import { pendingReducer } from '@state/reducers/pending';
 import { rejectedReducer } from '@state/reducers/rejected';
 import { fetchAlbumById, fetchAlbums, removeAlbum } from '@state/thunks/album';
 
+import { initialState } from '@constants/initialState';
+
 import type { Album } from '@interfaces/state/album';
-import type { InitialState } from '@interfaces/state/initialState';
 import type { EntityId, PayloadAction } from '@reduxjs/toolkit';
 
 const albumsAdapter = createEntityAdapter<Album>();
 
 const albumsSlice = createSlice({
   name: 'posts',
-  initialState: albumsAdapter.getInitialState<InitialState>({
-    loadingStatus: LoadingStatus.Idle,
-    error: null,
-  }),
+  initialState: albumsAdapter.getInitialState(initialState),
   reducers: {},
   extraReducers: builder => {
     builder

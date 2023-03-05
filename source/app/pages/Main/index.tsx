@@ -32,10 +32,10 @@ const MainPage: FC = () => {
               <Typography variant="h2">{t('albums')}</Typography>
             </Box>
           </Grid>
-          <Grid item lg={3} xs={12} onClick={handleNavigate(Path.ToDos)}>
+          <Grid item lg={3} xs={12} onClick={handleNavigate(Path.Todos)}>
             <Box className={styles.box}>
               <DashboardCustomize className={styles.icon} />
-              <Typography variant="h2">{t('toDo')}</Typography>
+              <Typography variant="h2">{t('todos')}</Typography>
             </Box>
           </Grid>
         </Grid>

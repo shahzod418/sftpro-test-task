@@ -6,7 +6,8 @@ import { rejectedReducer } from '@state/reducers/rejected';
 import { removeAlbum } from '@state/thunks/album';
 import { fetchPhotosByAlbumId, removePhoto } from '@state/thunks/photo';
 
-import type { InitialState } from '@interfaces/state/initialState';
+import { initialState } from '@constants/initialState';
+
 import type { Photo } from '@interfaces/state/photo';
 import type { EntityId, PayloadAction } from '@reduxjs/toolkit';
 
@@ -14,10 +15,7 @@ const photosAdapter = createEntityAdapter<Photo>();
 
 const photosSlice = createSlice({
   name: 'photos',
-  initialState: photosAdapter.getInitialState<InitialState>({
-    loadingStatus: LoadingStatus.Idle,
-    error: null,
-  }),
+  initialState: photosAdapter.getInitialState(initialState),
   reducers: {},
   extraReducers: builder => {
     builder

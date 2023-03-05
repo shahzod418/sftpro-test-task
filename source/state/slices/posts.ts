@@ -5,7 +5,8 @@ import { pendingReducer } from '@state/reducers/pending';
 import { rejectedReducer } from '@state/reducers/rejected';
 import { addPost, fetchPostById, fetchPosts, removePost, updatePost } from '@state/thunks/post';
 
-import type { InitialState } from '@interfaces/state/initialState';
+import { initialState } from '@constants/initialState';
+
 import type { Post } from '@interfaces/state/post';
 import type { EntityId, PayloadAction } from '@reduxjs/toolkit';
 
@@ -13,10 +14,7 @@ const postsAdapter = createEntityAdapter<Post>();
 
 const postsSlice = createSlice({
   name: 'posts',
-  initialState: postsAdapter.getInitialState<InitialState>({
-    loadingStatus: LoadingStatus.Idle,
-    error: null,
-  }),
+  initialState: postsAdapter.getInitialState(initialState),
   reducers: {},
   extraReducers: builder => {
     builder

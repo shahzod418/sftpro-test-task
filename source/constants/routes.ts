@@ -6,7 +6,7 @@ export enum Path {
   PostById = 'posts/:postId',
   Albums = 'albums',
   AlbumById = 'albums/:albumId',
-  ToDos = 'todos',
+  Todos = 'todos',
   Error = '*',
 }
 

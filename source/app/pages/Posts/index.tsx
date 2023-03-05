@@ -7,10 +7,10 @@ import { number, object, string } from 'yup';
 import { Container, Fade, Grid } from '@mui/material';
 
 import CustomCard from '@components/CustomCard';
+import CustomSkeleton from '@components/CustomSkeleton';
 import Header from '@components/Header';
 import Navigation from '@components/Navigation';
 import PostForm from '@components/PostForm';
-import PostsSkeleton from '@components/PostsSkeleton';
 
 import { useAppDispatch, useAppSelector } from '@hooks/redux';
 import { useMount } from '@hooks/useMount';
@@ -92,7 +92,7 @@ const Posts: FC = () => {
           spacing={2}
         >
           {posts.loadingStatus !== LoadingStatus.Idle ? (
-            <PostsSkeleton />
+            <CustomSkeleton />
           ) : (
             posts.ids.length !== 0 &&
             posts.ids.map(id => (

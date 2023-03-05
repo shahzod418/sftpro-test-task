@@ -6,18 +6,16 @@ import { rejectedReducer } from '@state/reducers/rejected';
 import { fetchCommentsByPostId, removeComment } from '@state/thunks/comment';
 import { removePost } from '@state/thunks/post';
 
+import { initialState } from '@constants/initialState';
+
 import type { Comment } from '@interfaces/state/comment';
-import type { InitialState } from '@interfaces/state/initialState';
 import type { EntityId, PayloadAction } from '@reduxjs/toolkit';
 
 const commentsAdapter = createEntityAdapter<Comment>();
 
 const commentsSlice = createSlice({
   name: 'comments',
-  initialState: commentsAdapter.getInitialState<InitialState>({
-    loadingStatus: LoadingStatus.Idle,
-    error: null,
-  }),
+  initialState: commentsAdapter.getInitialState(initialState),
   reducers: {},
   extraReducers: builder => {
     builder

@@ -1,3 +1,4 @@
+import { LoadingStatus } from '@interfaces/state/loadingStatus';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -5,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { Container, Fade, Grid } from '@mui/material';
 
 import CustomCard from '@components/CustomCard';
+import CustomSkeleton from '@components/CustomSkeleton';
 import Header from '@components/Header';
 import Navigation from '@components/Navigation';
 
@@ -47,16 +49,19 @@ const Albums: FC = () => {
   return (
     <Container className={styles.container} sx={{ paddingTop: 4 }}>
       <Header edit header={t('albums')} mount={mount} onEdit={handleEdit} />
-      {albums.ids.length !== 0 && (
-        <Fade in={mount}>
-          <Grid
-            container
-            className={styles['album-section']}
-            justifyContent="center"
-            marginTop={2}
-            spacing={2}
-          >
-            {albums.ids.map(id => (
+      <Fade in={mount}>
+        <Grid
+          container
+          className={styles['album-section']}
+          justifyContent="center"
+          marginTop={2}
+          spacing={2}
+        >
+          {albums.loadingStatus !== LoadingStatus.Idle ? (
+            <CustomSkeleton />
+          ) : (
+            albums.ids.length !== 0 &&
+            albums.ids.map(id => (
               <CustomCard
                 key={id}
                 asyncThunk={removeAlbum(id)}
@@ -64,10 +69,10 @@ const Albums: FC = () => {
                 title={albums.entities[id]?.title || ''}
                 onClick={handleClick(id)}
               />
-            ))}
-          </Grid>
-        </Fade>
-      )}
+            ))
+          )}
+        </Grid>
+      </Fade>
       <Navigation handleNavigate={handleNavigate} mount={mount} />
     </Container>
   );

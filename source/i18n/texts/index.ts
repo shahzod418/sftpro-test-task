@@ -1,10 +1,8 @@
-import type { I18n } from '@interfaces/i18next';
-
-const en: I18n = {
+const en = {
   translation: {
     posts: 'Posts',
     albums: 'Albums',
-    toDo: 'To Do',
+    todos: 'Todos',
     error: 'Unexpected error',
     post: 'Post',
     title: 'Title',
@@ -16,6 +14,8 @@ const en: I18n = {
     album: 'Album',
     userId: 'User ID',
     submit: 'Submit',
+    started: 'Started',
+    completed: 'Completed',
   },
 };
 

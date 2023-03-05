@@ -13,9 +13,9 @@ type Props = {
   handleNavigate: (path: Path) => () => void;
 };
 
-type Paths = Path.Main | Path.Posts | Path.Albums | Path.ToDos;
+type Paths = Path.Main | Path.Posts | Path.Albums | Path.Todos;
 
-const navigationPaths: Paths[] = [Path.Main, Path.Posts, Path.Albums, Path.ToDos];
+const navigationPaths: Paths[] = [Path.Main, Path.Posts, Path.Albums, Path.Todos];
 
 const mappedPaths: Record<Paths, { color: FabTypeMap['props']['color']; icon: ReactElement }> = {
   [Path.Main]: {
@@ -30,7 +30,7 @@ const mappedPaths: Record<Paths, { color: FabTypeMap['props']['color']; icon: Re
     color: 'success',
     icon: <PhotoAlbum />,
   },
-  [Path.ToDos]: {
+  [Path.Todos]: {
     color: 'secondary',
     icon: <DashboardCustomize />,
   },

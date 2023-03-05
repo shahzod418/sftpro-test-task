@@ -6,7 +6,7 @@ import styles from './style.m.scss';
 
 import type { FC } from 'react';
 
-const PostsSkeleton: FC = () => {
+const CustomSkeleton: FC = () => {
   return (
     <>
       <Grid item lg={5} xl={3} xs={10}>
@@ -31,4 +31,4 @@ const PostsSkeleton: FC = () => {
   );
 };
 
-export default PostsSkeleton;
+export default CustomSkeleton;
