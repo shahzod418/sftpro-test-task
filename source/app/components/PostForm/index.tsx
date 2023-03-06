@@ -29,8 +29,8 @@ const PostForm: FC<Props> = ({
 
   return (
     <Drawer anchor="bottom" open={open} onClose={onClose}>
-      <Container maxWidth="sm" sx={{ marginX: 'auto', paddingY: 4 }}>
-        <Grid item marginBottom={4} xs={12}>
+      <Container maxWidth="sm" sx={{ mx: 'auto', py: 4 }}>
+        <Grid item mb={4} xs={12}>
           <Typography align="center" variant="h4">
             {title}
           </Typography>

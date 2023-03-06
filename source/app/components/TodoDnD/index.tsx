@@ -30,9 +30,9 @@ const TodoDnD: FC<Props> = ({ todoIds, todos, droppableId, isDraggable, isSkelet
     <Droppable droppableId={droppableId}>
       {(provided): ReactElement => (
         <Box
-          ref={provided.innerRef}
           {...provided.droppableProps}
           className={styles.box}
+          ref={provided.innerRef}
           sx={{
             ...(!isMobile && { height: '63vh' }),
             ...(isMobile && { display: 'flex', flexDirection: 'column', height: '30vh' }),

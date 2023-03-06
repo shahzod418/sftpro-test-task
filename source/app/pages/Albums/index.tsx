@@ -22,17 +22,15 @@ import type { EntityId } from '@reduxjs/toolkit';
 import type { FC } from 'react';
 
 const Albums: FC = () => {
+  const { mount, handleNavigate } = useMount();
+
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
-  const navigate = useNavigate();
-
   const { t } = useTranslation();
-
-  const albums = useAppSelector(state => state.albums);
-
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const { mount, handleNavigate } = useMount();
+  const albums = useAppSelector(state => state.albums);
 
   const handleClick = (albumId: EntityId) => (): void => {
     navigate(getAlbumByIdPath(albumId));
@@ -47,14 +45,14 @@ const Albums: FC = () => {
   }, []);
 
   return (
-    <Container className={styles.container} sx={{ paddingTop: 4 }}>
+    <Container sx={{ pt: 4, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Header edit header={t('albums')} mount={mount} onEdit={handleEdit} />
       <Fade in={mount}>
         <Grid
           container
           className={styles['album-section']}
           justifyContent="center"
-          marginTop={2}
+          mt={2}
           spacing={2}
         >
           {albums.loadingStatus !== LoadingStatus.Idle || !albums ? (

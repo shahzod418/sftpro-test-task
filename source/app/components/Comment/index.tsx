@@ -13,15 +13,13 @@ type Props = {
   body: string;
 };
 
-const Comment: FC<Props> = ({ commentId, name, email, body }) => {
-  return (
-    <Card variant="outlined">
-      <CommentHeader commentId={commentId} email={email} name={name} />
-      <CardContent>
-        <Typography variant="body1">{body}</Typography>
-      </CardContent>
-    </Card>
-  );
-};
+const Comment: FC<Props> = ({ commentId, name, email, body }) => (
+  <Card variant="outlined">
+    <CommentHeader commentId={commentId} email={email} name={name} />
+    <CardContent>
+      <Typography variant="body1">{body}</Typography>
+    </CardContent>
+  </Card>
+);
 
 export default Comment;

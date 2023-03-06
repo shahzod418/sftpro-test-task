@@ -2,33 +2,29 @@ import React from 'react';
 
 import { Grid, Skeleton } from '@mui/material';
 
-import styles from './style.m.scss';
-
 import type { FC } from 'react';
 
-const CommentsSkeleton: FC = () => {
-  return (
-    <>
-      <Grid item className={styles.box} xs={11}>
-        <Skeleton className={styles.skeleton} />
-      </Grid>
-      <Grid item className={styles.box} xs={11}>
-        <Skeleton className={styles.skeleton} />
-      </Grid>
-      <Grid item className={styles.box} xs={11}>
-        <Skeleton className={styles.skeleton} />
-      </Grid>
-      <Grid item className={styles.box} xs={11}>
-        <Skeleton className={styles.skeleton} />
-      </Grid>
-      <Grid item className={styles.box} xs={11}>
-        <Skeleton className={styles.skeleton} />
-      </Grid>
-      <Grid item className={styles.box} xs={11}>
-        <Skeleton className={styles.skeleton} />
-      </Grid>
-    </>
-  );
-};
+const CommentsSkeleton: FC = () => (
+  <>
+    <Grid item xs={11}>
+      <Skeleton sx={{ height: 50 }} />
+    </Grid>
+    <Grid item xs={11}>
+      <Skeleton sx={{ height: 50 }} />
+    </Grid>
+    <Grid item xs={11}>
+      <Skeleton sx={{ height: 50 }} />
+    </Grid>
+    <Grid item xs={11}>
+      <Skeleton sx={{ height: 50 }} />
+    </Grid>
+    <Grid item xs={11}>
+      <Skeleton sx={{ height: 50 }} />
+    </Grid>
+    <Grid item xs={11}>
+      <Skeleton sx={{ height: 50 }} />
+    </Grid>
+  </>
+);
 
 export default CommentsSkeleton;

@@ -9,21 +9,19 @@ type Props = {
   text?: string;
 };
 
-const PostText: FC<Props> = ({ header, text }) => {
-  return (
-    <>
-      <Grid item lg={3} xs={11}>
-        <Typography color="white" variant="h4">
-          {header}
-        </Typography>
-      </Grid>
-      <Grid item lg={8} xs={11}>
-        <Typography color="white" variant="h6">
-          {text ? text : <Skeleton />}
-        </Typography>
-      </Grid>
-    </>
-  );
-};
+const PostText: FC<Props> = ({ header, text }) => (
+  <>
+    <Grid item lg={3} xs={11}>
+      <Typography color="white" variant="h4">
+        {header}
+      </Typography>
+    </Grid>
+    <Grid item lg={8} xs={11}>
+      <Typography color="white" variant="h6">
+        {text ? text : <Skeleton />}
+      </Typography>
+    </Grid>
+  </>
+);
 
 export default memo(PostText);

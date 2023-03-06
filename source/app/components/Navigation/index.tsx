@@ -42,26 +42,18 @@ const data: Data[] = [
   },
 ];
 
-const Navigation: FC<Props> = ({ mount, handleNavigate }) => {
-  const pathname = location.pathname;
-
-  return (
-    <Slide direction="up" in={mount}>
-      <Grid container gap={2} justifyContent="flex-end" marginTop="auto" paddingY={4}>
-        {data.map(({ path, color, icon }) => {
-          if (`/${path}` === pathname) {
-            return null;
-          }
-
-          return (
-            <Fab key={path} color={color} onClick={handleNavigate(path)}>
-              {icon}
-            </Fab>
-          );
-        })}
-      </Grid>
-    </Slide>
-  );
-};
+const Navigation: FC<Props> = ({ mount, handleNavigate }) => (
+  <Slide direction="up" in={mount}>
+    <Grid container gap={2} justifyContent="flex-end" mt="auto" py={4}>
+      {data.map(({ path, color, icon }) =>
+        `/${path}` === location.pathname ? null : (
+          <Fab key={path} color={color} onClick={handleNavigate(path)}>
+            {icon}
+          </Fab>
+        ),
+      )}
+    </Grid>
+  </Slide>
+);
 
 export default memo(Navigation);

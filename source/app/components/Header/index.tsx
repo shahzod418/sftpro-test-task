@@ -19,21 +19,20 @@ type Props = {
 
 const Header: FC<Props> = ({ mount, header, create, onCreate, edit, onEdit }) => {
   const { isMobile } = useDeviceDetect();
-
   const { t } = useTranslation();
 
   return (
     <Slide direction="down" in={mount}>
       <Grid container alignItems="center">
-        <Grid item marginRight="auto">
+        <Grid item mr="auto">
           <Typography color="white" variant="h3">
             {header}
           </Typography>
         </Grid>
         {create && (
-          <Grid item sx={{ mr: 2 }}>
+          <Grid item mr={2}>
             <Fab color="info" variant="extended" onClick={onCreate}>
-              <Add sx={isMobile ? {} : { mr: 2 }} />
+              <Add sx={{ mr: isMobile ? 0 : 2 }} />
               {isMobile ? '' : t('create')}
             </Fab>
           </Grid>
@@ -41,7 +40,7 @@ const Header: FC<Props> = ({ mount, header, create, onCreate, edit, onEdit }) =>
         {edit && (
           <Grid item>
             <Fab color="warning" variant="extended" onClick={onEdit}>
-              <Edit sx={isMobile ? {} : { mr: 2 }} />
+              <Edit sx={{ mr: isMobile ? 0 : 2 }} />
               {isMobile ? '' : t('edit')}
             </Fab>
           </Grid>

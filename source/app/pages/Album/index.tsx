@@ -14,8 +14,6 @@ import { useMount } from '@hooks/useMount';
 import { fetchAlbumById } from '@state/thunks/album';
 import { fetchPhotosByAlbumId } from '@state/thunks/photo';
 
-import styles from './style.m.scss';
-
 import type { Photo } from '@interfaces/state/photo';
 import type { FC } from 'react';
 
@@ -43,7 +41,7 @@ const Album: FC = () => {
   }, []);
 
   return (
-    <Container className={styles.container} sx={{ paddingTop: 4 }}>
+    <Container sx={{ pt: 4, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Header header={t('album')} mount={mount} />
       <Fade in={mount}>
         <Grid container>

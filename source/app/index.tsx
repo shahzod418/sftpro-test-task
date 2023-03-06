@@ -16,14 +16,12 @@ const darkTheme = createTheme({
   },
 });
 
-const App: FC = () => {
-  return (
-    <Provider store={store}>
-      <ThemeProvider theme={darkTheme}>
-        <RouterProvider router={router} />
-      </ThemeProvider>
-    </Provider>
-  );
-};
+const App: FC = () => (
+  <Provider store={store}>
+    <ThemeProvider theme={darkTheme}>
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  </Provider>
+);
 
 export default App;

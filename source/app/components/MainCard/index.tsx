@@ -16,9 +16,9 @@ type Props = {
 };
 
 const mappedIcon = {
-  [Path.Posts]: <Newspaper className={styles.icon} />,
-  [Path.Albums]: <PhotoAlbum className={styles.icon} />,
-  [Path.Todos]: <DashboardCustomize className={styles.icon} />,
+  [Path.Posts]: <Newspaper sx={{ fontSize: '10em' }} />,
+  [Path.Albums]: <PhotoAlbum sx={{ fontSize: '10em' }} />,
+  [Path.Todos]: <DashboardCustomize sx={{ fontSize: '10em' }} />,
 } as Record<Path, ReactElement>;
 
 const MainCard: FC<Props> = ({ path, title, onClick }) => {

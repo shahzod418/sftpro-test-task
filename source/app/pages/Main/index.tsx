@@ -13,6 +13,7 @@ import type { FC } from 'react';
 
 const MainPage: FC = () => {
   const { mount, handleNavigate } = useMount();
+
   const { t } = useTranslation();
 
   const data = [

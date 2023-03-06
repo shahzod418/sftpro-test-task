@@ -74,7 +74,7 @@ const Posts: FC = () => {
   }, []);
 
   return (
-    <Container className={styles.container} sx={{ paddingTop: 4 }}>
+    <Container sx={{ pt: 4, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Header
         create
         edit
@@ -88,7 +88,7 @@ const Posts: FC = () => {
           container
           className={styles['post-section']}
           justifyContent="center"
-          marginTop={2}
+          mt={2}
           spacing={2}
         >
           {posts.loadingStatus !== LoadingStatus.Idle || !posts ? (

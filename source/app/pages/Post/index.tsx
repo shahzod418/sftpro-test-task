@@ -77,10 +77,10 @@ const Post: FC = () => {
   }, []);
 
   return (
-    <Container className={styles.container} sx={{ paddingTop: 4 }}>
+    <Container sx={{ pt: 4, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Header edit header={t('post')} mount={mount} onEdit={handleOpen} />
       <Fade in={mount}>
-        <Grid container justifyContent="center" marginTop={4} rowGap={4}>
+        <Grid container justifyContent="center" mt={4} rowGap={4}>
           <PostText header={t('title')} text={post?.title} />
           <PostText header={t('body')} text={post?.body} />
           <Grid item lg={3} xs={11}>
@@ -89,7 +89,7 @@ const Post: FC = () => {
             </Typography>
           </Grid>
           <Grid item lg={8} xs={11}>
-            <Grid container className={styles['comment-section']} justifyContent="center">
+            <Grid container className={styles['comment-section']}>
               {comments.loadingStatus !== LoadingStatus.Idle || !commentsByPostIds ? (
                 <CommentsSkeleton />
               ) : (
@@ -103,7 +103,7 @@ const Post: FC = () => {
                   const { id, name, email, body } = comment;
 
                   return (
-                    <Grid key={id} item marginBottom={2} xs={11}>
+                    <Grid key={id} item mb={2} xs={11}>
                       <Comment body={body} commentId={id} email={email} name={name} />
                     </Grid>
                   );

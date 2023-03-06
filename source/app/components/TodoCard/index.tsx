@@ -12,20 +12,18 @@ type Props = {
   provided?: DraggableProvided;
 };
 
-const TodoCard: FC<Props> = ({ title, provided }) => {
-  return (
-    <Card
-      ref={provided && provided.innerRef}
-      {...provided?.draggableProps}
-      {...provided?.dragHandleProps}
-      className={styles.card}
-      variant="outlined"
-    >
-      <Typography align="center" sx={{ userSelect: 'none' }} variant="h6">
-        {title}
-      </Typography>
-    </Card>
-  );
-};
+const TodoCard: FC<Props> = ({ title, provided }) => (
+  <Card
+    {...provided?.draggableProps}
+    {...provided?.dragHandleProps}
+    className={styles.card}
+    ref={provided && provided.innerRef}
+    variant="outlined"
+  >
+    <Typography align="center" sx={{ userSelect: 'none' }} variant="h6">
+      {title}
+    </Typography>
+  </Card>
+);
 
 export default TodoCard;

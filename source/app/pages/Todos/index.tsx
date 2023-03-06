@@ -17,8 +17,6 @@ import { useMount } from '@hooks/useMount';
 import { reorderTodos } from '@state/slices/todos';
 import { fetchTodos, removeTodo, updateTodo } from '@state/thunks/todo';
 
-import styles from './style.m.scss';
-
 import type { FC } from 'react';
 import type { DropResult } from 'react-beautiful-dnd';
 
@@ -73,19 +71,19 @@ const Todos: FC = () => {
   }, []);
 
   return (
-    <Container className={styles.container} sx={{ paddingTop: 4 }}>
+    <Container sx={{ pt: 4, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Header create header={t('todos')} mount={mount} onCreate={handleOpen} />
       <Fade in={mount}>
         <Grid
           container
           gap={isMobile ? 2 : 10}
           justifyContent="center"
-          marginTop={2}
+          mt={2}
           sx={{ flexDirection: isMobile ? 'column' : 'raw', minHeight: 600 }}
         >
           <DragDropContext onDragEnd={handleDragEnd}>
             <Grid item lg={4} xs={12}>
-              <Typography color="white" marginBottom={2} variant="h4">
+              <Typography color="white" mb={2} variant="h4">
                 {t('started')}
               </Typography>
               <TodoDnD
@@ -97,7 +95,7 @@ const Todos: FC = () => {
               />
             </Grid>
             <Grid item lg={4} xs={12}>
-              <Typography color="white" marginBottom={2} variant="h4">
+              <Typography color="white" mb={2} variant="h4">
                 {t('completed')}
               </Typography>
               <TodoDnD
