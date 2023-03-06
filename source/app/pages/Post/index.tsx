@@ -1,3 +1,4 @@
+import { LoadingStatus } from '@interfaces/state/loadingStatus';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
@@ -89,7 +90,7 @@ const Post: FC = () => {
           </Grid>
           <Grid item lg={8} xs={11}>
             <Grid container className={styles['comment-section']} justifyContent="center">
-              {!commentsByPostIds ? (
+              {comments.loadingStatus !== LoadingStatus.Idle || !commentsByPostIds ? (
                 <CommentsSkeleton />
               ) : (
                 commentsByPostIds.map(commentId => {

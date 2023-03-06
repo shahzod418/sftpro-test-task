@@ -1,8 +1,9 @@
+import { LoadingStatus } from '@interfaces/state/loadingStatus';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-import { Container, Fade, Grid } from '@mui/material';
+import { Backdrop, CircularProgress, Container, Fade, Grid } from '@mui/material';
 
 import Header from '@components/Header';
 import Navigation from '@components/Navigation';
@@ -46,7 +47,11 @@ const Album: FC = () => {
       <Header header={t('album')} mount={mount} />
       <Fade in={mount}>
         <Grid container>
-          {photosByAlbumIds && (
+          {photos.loadingStatus !== LoadingStatus.Idle || !photosByAlbumIds ? (
+            <Backdrop open={true}>
+              <CircularProgress color="inherit" />
+            </Backdrop>
+          ) : (
             <PhotoSlider
               photos={photosByAlbumIds.reduce<Photo[]>((acc, photoId) => {
                 const photo = photos.entities[photoId];

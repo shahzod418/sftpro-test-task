@@ -91,7 +91,7 @@ const Todos: FC = () => {
               <TodoDnD
                 isDraggable
                 droppableId={DroppableId.Started}
-                isSkeleton={todos.loadingStatus === LoadingStatus.Loading}
+                isSkeleton={todos.loadingStatus !== LoadingStatus.Idle || !todos}
                 todoIds={startedTodoIds}
                 todos={todos.entities}
               />
@@ -102,7 +102,7 @@ const Todos: FC = () => {
               </Typography>
               <TodoDnD
                 droppableId={DroppableId.Completed}
-                isSkeleton={todos.loadingStatus === LoadingStatus.Loading}
+                isSkeleton={todos.loadingStatus !== LoadingStatus.Idle || !todos}
                 todoIds={completedTodoIds}
                 todos={todos.entities}
               />

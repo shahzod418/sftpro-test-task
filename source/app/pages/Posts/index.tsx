@@ -91,10 +91,9 @@ const Posts: FC = () => {
           marginTop={2}
           spacing={2}
         >
-          {posts.loadingStatus !== LoadingStatus.Idle ? (
+          {posts.loadingStatus !== LoadingStatus.Idle || !posts ? (
             <CustomSkeleton />
           ) : (
-            posts.ids.length !== 0 &&
             posts.ids.map(id => (
               <CustomCard
                 key={id}

@@ -57,10 +57,9 @@ const Albums: FC = () => {
           marginTop={2}
           spacing={2}
         >
-          {albums.loadingStatus !== LoadingStatus.Idle ? (
+          {albums.loadingStatus !== LoadingStatus.Idle || !albums ? (
             <CustomSkeleton />
           ) : (
-            albums.ids.length !== 0 &&
             albums.ids.map(id => (
               <CustomCard
                 key={id}

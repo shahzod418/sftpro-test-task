@@ -1,12 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { DashboardCustomize, Newspaper, PhotoAlbum } from '@mui/icons-material';
-import { Box, Grid, Slide, Typography } from '@mui/material';
+import { Grid, Slide } from '@mui/material';
+
+import MainCard from '@components/MainCard';
 
 import { useMount } from '@hooks/useMount';
-
-import styles from './style.m.scss';
 
 import { Path } from '@constants/routes';
 
@@ -16,28 +15,19 @@ const MainPage: FC = () => {
   const { mount, handleNavigate } = useMount();
   const { t } = useTranslation();
 
+  const data = [
+    { path: Path.Posts, title: t('posts') },
+    { path: Path.Albums, title: t('albums') },
+    { path: Path.Todos, title: t('todos') },
+  ];
+
   return (
     <>
       <Slide direction="up" in={mount}>
         <Grid container color="white" gap={4} justifyContent="center" margin="auto">
-          <Grid item lg={3} xs={12} onClick={handleNavigate(Path.Posts)}>
-            <Box className={styles.box}>
-              <Newspaper className={styles.icon} />
-              <Typography variant="h2">{t('posts')}</Typography>
-            </Box>
-          </Grid>
-          <Grid item lg={3} xs={12} onClick={handleNavigate(Path.Albums)}>
-            <Box className={styles.box}>
-              <PhotoAlbum className={styles.icon} />
-              <Typography variant="h2">{t('albums')}</Typography>
-            </Box>
-          </Grid>
-          <Grid item lg={3} xs={12} onClick={handleNavigate(Path.Todos)}>
-            <Box className={styles.box}>
-              <DashboardCustomize className={styles.icon} />
-              <Typography variant="h2">{t('todos')}</Typography>
-            </Box>
-          </Grid>
+          {data.map(({ path, title }) => (
+            <MainCard key={path} title={title} onClick={handleNavigate(path)} />
+          ))}
         </Grid>
       </Slide>
     </>

@@ -13,28 +13,34 @@ type Props = {
   handleNavigate: (path: Path) => () => void;
 };
 
-type Paths = Path.Main | Path.Posts | Path.Albums | Path.Todos;
+type Data = {
+  path: Path;
+  color: FabTypeMap['props']['color'];
+  icon: ReactElement;
+};
 
-const navigationPaths: Paths[] = [Path.Main, Path.Posts, Path.Albums, Path.Todos];
-
-const mappedPaths: Record<Paths, { color: FabTypeMap['props']['color']; icon: ReactElement }> = {
-  [Path.Main]: {
+const data: Data[] = [
+  {
+    path: Path.Main,
     color: 'default',
     icon: <Home />,
   },
-  [Path.Posts]: {
+  {
+    path: Path.Posts,
     color: 'info',
     icon: <Newspaper />,
   },
-  [Path.Albums]: {
+  {
+    path: Path.Albums,
     color: 'success',
     icon: <PhotoAlbum />,
   },
-  [Path.Todos]: {
+  {
+    path: Path.Todos,
     color: 'secondary',
     icon: <DashboardCustomize />,
   },
-};
+];
 
 const Navigation: FC<Props> = ({ mount, handleNavigate }) => {
   const pathname = location.pathname;
@@ -42,12 +48,10 @@ const Navigation: FC<Props> = ({ mount, handleNavigate }) => {
   return (
     <Slide direction="up" in={mount}>
       <Grid container gap={2} justifyContent="flex-end" marginTop="auto" paddingY={4}>
-        {navigationPaths.map(path => {
+        {data.map(({ path, color, icon }) => {
           if (`/${path}` === pathname) {
             return null;
           }
-
-          const { color, icon } = mappedPaths[path];
 
           return (
             <Fab key={path} color={color} onClick={handleNavigate(path)}>

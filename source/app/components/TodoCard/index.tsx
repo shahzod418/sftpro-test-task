@@ -21,7 +21,7 @@ const TodoCard: FC<Props> = ({ title, provided }) => {
       className={styles.card}
       variant="outlined"
     >
-      <Typography align="center" variant="h6">
+      <Typography align="center" sx={{ userSelect: 'none' }} variant="h6">
         {title}
       </Typography>
     </Card>
