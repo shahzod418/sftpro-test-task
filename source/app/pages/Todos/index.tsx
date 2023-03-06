@@ -81,7 +81,7 @@ const Todos: FC = () => {
           gap={isMobile ? 2 : 10}
           justifyContent="center"
           marginTop={2}
-          sx={{ flexDirection: isMobile ? 'column' : 'raw' }}
+          sx={{ flexDirection: isMobile ? 'column' : 'raw', minHeight: 600 }}
         >
           <DragDropContext onDragEnd={handleDragEnd}>
             <Grid item lg={4} xs={12}>
