@@ -26,7 +26,7 @@ const MainPage: FC = () => {
       <Slide direction="up" in={mount}>
         <Grid container color="white" gap={4} justifyContent="center" margin="auto">
           {data.map(({ path, title }) => (
-            <MainCard key={path} title={title} onClick={handleNavigate(path)} />
+            <MainCard key={path} path={path} title={title} onClick={handleNavigate(path)} />
           ))}
         </Grid>
       </Slide>
